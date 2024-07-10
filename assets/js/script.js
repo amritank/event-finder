@@ -27,13 +27,23 @@ function renderCard(event) {
   // Results card
   const cardEl = document.createElement('div');
 
+  // Main row
+  const mainRowEl = document.createElement('div');
+  mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row')
+
   // Thumbnail
   const thumbnailEl = document.createElement('img');
   thumbnailEl.src = event.thumbnail;
+  mainRowEl.append(thumbnailEl);
+
+  // Main Info container
+  const mainInfoContainerEl = document.createElement('div');
+  mainRowEl.append(mainInfoContainerEl);
 
   // Title
   const titleEl = document.createElement('div');
   titleEl.textContent = event.title;
+  mainInfoContainerEl.append(titleEl);
 
   // Info
   const infoEl = document.createElement('div');
@@ -44,6 +54,7 @@ function renderCard(event) {
   const addressEl = document.createElement('p');
   addressEl.textContent = 'Address: ' + event.address;
   infoEl.append(dateEl, timeEl, addressEl);
+  mainInfoContainerEl.append(infoEl);
 
   // Source
   // TODO: Get icons for source
@@ -55,7 +66,7 @@ function renderCard(event) {
   moreInfoEl.textContent = 'More Info';
 
   // Append info to card and append card to results container
-  cardEl.append(thumbnailEl, titleEl, infoEl, sourceEl, moreInfoEl);
+  cardEl.append(mainRowEl, sourceEl, moreInfoEl);
   resultsContainerEl.append(cardEl);
 }
 
