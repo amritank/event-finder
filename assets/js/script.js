@@ -97,7 +97,17 @@ const eventsMockup = [
     thumbnail: 'https://picsum.photos/200/300',
     source: 'Ticketmaster',
     link: 'https://www.ticketmaster.com/'
-  }
+  },
+  {
+    title: 'Second Event',
+    description: 'This is the second event description.',
+    address: '456 Address Ln, City, ST 98765',
+    date: '07-11-2024',
+    time: '8:00 pm',
+    thumbnail: 'https://picsum.photos/200/300',
+    source: 'Ticketmaster',
+    link: 'https://www.ticketmaster.com/'
+  },
 ];
 
 localStorage.setItem('events', JSON.stringify(eventsMockup));
