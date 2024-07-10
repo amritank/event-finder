@@ -56,17 +56,23 @@ function renderCard(event) {
   infoEl.append(dateEl, timeEl, addressEl);
   mainInfoContainerEl.append(infoEl);
 
+  // Bottom row
+  const bottomRow = document.createElement('div');
+  bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between');
+
   // Source
   // TODO: Get icons for source
   const sourceEl = document.createElement('p');
   sourceEl.textContent = event.source;
+  bottomRow.append(sourceEl);
 
   // More info
   const moreInfoEl = document.createElement('button');
   moreInfoEl.textContent = 'More Info';
+  bottomRow.append(moreInfoEl);
 
   // Append info to card and append card to results container
-  cardEl.append(mainRowEl, sourceEl, moreInfoEl);
+  cardEl.append(mainRowEl, bottomRow);
   resultsContainerEl.append(cardEl);
 }
 
