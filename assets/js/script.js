@@ -34,3 +34,20 @@ function renderCard(event) {
   cardEl.appendChild(titleEl);
   resultsContainerEl.appendChild(cardEl);
 }
+
+const eventsMockup = [
+  {
+    title: 'Event Title',
+    description: 'This is the event description.',
+    address: '123 Address Ln, City, ST 12345',
+    date: '07-10-2024',
+    time: '5:00 pm',
+    thumbnail: 'https://picsum.photos/200',
+    source: 'Ticketmaster',
+    link: 'https://www.ticketmaster.com/'
+  }
+];
+
+localStorage.setItem('events', JSON.stringify(eventsMockup));
+
+renderResults();
