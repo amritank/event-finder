@@ -8,18 +8,6 @@ function renderResults() {
   }
 }
 
-
-/** event object = {
- *   title: '',
- *   description: '',
- *   address: '',
- *   date: '',
- *   time: '',
- *   thumbnail: '',
- *   source: '',
- *   link: ''
- * }
- */
 function renderCard(eventObj) {
   // Get results container
   const resultsContainerEl = document.getElementById('eventResultsContainer');
