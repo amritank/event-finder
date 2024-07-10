@@ -34,9 +34,12 @@ function renderCard(event) {
   mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
 
   // Thumbnail
-  const thumbnailEl = document.createElement('img');
-  thumbnailEl.src = event.thumbnail;
-  thumbnailEl.setAttribute('class', 'mr-4');
+  const thumbnailEl = document.createElement('div');
+  thumbnailEl.style.backgroundImage = `url(${event.thumbnail})`;
+  thumbnailEl.style.backgroundSize = 'cover';
+  thumbnailEl.style.height = '150px';
+  thumbnailEl.style.width = '150px';
+  thumbnailEl.setAttribute('class', 'mr-5');
   mainRowEl.append(thumbnailEl);
 
   // Main Info container
@@ -90,7 +93,7 @@ const eventsMockup = [
     address: '123 Address Ln, City, ST 12345',
     date: '07-10-2024',
     time: '5:00 pm',
-    thumbnail: 'https://picsum.photos/200',
+    thumbnail: 'https://picsum.photos/200/300',
     source: 'Ticketmaster',
     link: 'https://www.ticketmaster.com/'
   }
