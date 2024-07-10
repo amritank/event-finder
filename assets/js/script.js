@@ -20,7 +20,7 @@ function renderResults() {
  *   link: ''
  * }
  */
-function renderCard(event) {
+function renderCard(eventObj) {
   // Get results container
   const resultsContainerEl = document.getElementById('eventResultsContainer');
 
@@ -35,7 +35,7 @@ function renderCard(event) {
 
   // Thumbnail
   const thumbnailEl = document.createElement('div');
-  thumbnailEl.style.backgroundImage = `url(${event.thumbnail})`;
+  thumbnailEl.style.backgroundImage = `url(${eventObj.thumbnail})`;
   thumbnailEl.style.backgroundSize = 'cover';
   thumbnailEl.style.height = '150px';
   thumbnailEl.style.width = '150px';
@@ -48,7 +48,7 @@ function renderCard(event) {
 
   // Title
   const titleEl = document.createElement('h3');
-  titleEl.textContent = event.title;
+  titleEl.textContent = eventObj.title;
   titleEl.setAttribute('class', 'mb-2');
   titleEl.style.fontWeight = 'bold';
   titleEl.style.fontSize = '175%';
@@ -57,11 +57,11 @@ function renderCard(event) {
   // Info
   const infoEl = document.createElement('div');
   const dateEl = document.createElement('p');
-  dateEl.textContent = 'Date: ' + event.date;
+  dateEl.textContent = 'Date: ' + eventObj.date;
   const timeEl = document.createElement('p');
-  timeEl.textContent = 'Time: ' + event.time;
+  timeEl.textContent = 'Time: ' + eventObj.time;
   const addressEl = document.createElement('p');
-  addressEl.textContent = 'Address: ' + event.address;
+  addressEl.textContent = 'Address: ' + eventObj.address;
   infoEl.append(dateEl, timeEl, addressEl);
   mainInfoContainerEl.append(infoEl);
 
