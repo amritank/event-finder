@@ -70,7 +70,6 @@ function renderCard(event) {
   bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between');
 
   // Source
-  // TODO: Get icons for source
   const sourceEl = document.createElement('img');
   sourceEl.src = './assets/images/ticketmaster-logo.png';
   sourceEl.style.height = '20px';
