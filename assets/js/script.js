@@ -44,8 +44,10 @@ function renderCard(event) {
   mainRowEl.append(mainInfoContainerEl);
 
   // Title
-  const titleEl = document.createElement('div');
+  const titleEl = document.createElement('h3');
   titleEl.textContent = event.title;
+  titleEl.style.fontWeight = 'bold';
+  titleEl.style.fontSize = '175%';
   mainInfoContainerEl.append(titleEl);
 
   // Info
