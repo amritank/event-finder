@@ -27,6 +27,10 @@ function renderCard(event) {
   // Results card
   const cardEl = document.createElement('div');
 
+  // Thumbnail
+  const thumbnailEl = document.createElement('img');
+  thumbnailEl.src = event.thumbnail;
+
   // Title
   const titleEl = document.createElement('div');
   titleEl.textContent = event.title;
@@ -41,8 +45,17 @@ function renderCard(event) {
   addressEl.textContent = 'Address: ' + event.address;
   infoEl.append(dateEl, timeEl, addressEl);
 
+  // Source
+  // TODO: Get icons for source
+  const sourceEl = document.createElement('p');
+  sourceEl.textContent = event.source;
+
+  // More info
+  const moreInfoEl = document.createElement('button');
+  moreInfoEl.textContent = 'More Info';
+
   // Append info to card and append card to results container
-  cardEl.append(titleEl, infoEl);
+  cardEl.append(thumbnailEl, titleEl, infoEl, sourceEl, moreInfoEl);
   resultsContainerEl.append(cardEl);
 }
 
