@@ -67,8 +67,10 @@ function renderCard(event) {
 
   // Source
   // TODO: Get icons for source
-  const sourceEl = document.createElement('p');
-  sourceEl.textContent = event.source;
+  const sourceEl = document.createElement('img');
+  sourceEl.src = './assets/images/ticketmaster-logo.png';
+  sourceEl.style.height = '20px';
+  sourceEl.style.width = '20px';
   bottomRow.append(sourceEl);
 
   // More info
