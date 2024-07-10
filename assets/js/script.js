@@ -67,7 +67,7 @@ function renderCard(event) {
 
   // Bottom row
   const bottomRow = document.createElement('div');
-  bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between');
+  bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between is-align-items-flex-end');
 
   // Source
   const sourceEl = document.createElement('img');
@@ -79,6 +79,7 @@ function renderCard(event) {
   // More info
   const moreInfoEl = document.createElement('button');
   moreInfoEl.textContent = 'More Info';
+  moreInfoEl.classList.add('button');
   bottomRow.append(moreInfoEl);
 
   // Append info to card and append card to results container
