@@ -31,8 +31,19 @@ function renderCard(event) {
   const titleEl = document.createElement('div');
   titleEl.textContent = event.title;
 
-  cardEl.appendChild(titleEl);
-  resultsContainerEl.appendChild(cardEl);
+  // Info
+  const infoEl = document.createElement('div');
+  const dateEl = document.createElement('p');
+  dateEl.textContent = 'Date: ' + event.date;
+  const timeEl = document.createElement('p');
+  timeEl.textContent = 'Time: ' + event.time;
+  const addressEl = document.createElement('p');
+  addressEl.textContent = 'Address: ' + event.address;
+  infoEl.append(dateEl, timeEl, addressEl);
+
+  // Append info to card and append card to results container
+  cardEl.append(titleEl, infoEl);
+  resultsContainerEl.append(cardEl);
 }
 
 const eventsMockup = [
