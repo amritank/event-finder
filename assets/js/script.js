@@ -26,14 +26,17 @@ function renderCard(event) {
 
   // Results card
   const cardEl = document.createElement('div');
+  cardEl.setAttribute('class', 'p-5');
+  cardEl.style.border = '2px solid black';
 
   // Main row
   const mainRowEl = document.createElement('div');
-  mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row')
+  mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
 
   // Thumbnail
   const thumbnailEl = document.createElement('img');
   thumbnailEl.src = event.thumbnail;
+  thumbnailEl.setAttribute('class', 'mr-4');
   mainRowEl.append(thumbnailEl);
 
   // Main Info container
