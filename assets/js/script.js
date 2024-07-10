@@ -26,7 +26,7 @@ function renderCard(eventObj) {
 
   // Results card
   const cardEl = document.createElement('div');
-  cardEl.setAttribute('class', 'p-5');
+  cardEl.setAttribute('class', 'p-5 mb-5');
   cardEl.style.border = '2px solid black';
 
   // Main row
