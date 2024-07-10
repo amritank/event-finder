@@ -1,19 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Finder</title>
-  
+
   <!-- Link to Bulma CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
 
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-
 <body>
+<header>
+  <h1>EventFinder</h1>
+</header>
 
-  <script src="./assets/js/script.js"></script>
+<main>
+  <div id="eventSearchContainer">
+    <div id="form-container">
+      <form id="search-form">
+        <ul>
+          <li class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="event-type">EVENT TYPE</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input id="eventType" class="input" type="text" placeholder="Concert">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="event-city">CITY</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input id="eventCity" class="input" type="text" placeholder="San Diego">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="event-state">STATE</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input id="eventState" class="input" type="text" placeholder="California">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li id="button" class="field">
+            <p id="errorMsg" class="help is-danger">Alert</p>
+            <div class="control">
+              <button type="button" class="button is-info" onclick="validateForm()">Search</button>
+            </div>
+            
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  <div id="eventResultsContainer" class="result-box"></div>
+</main>
+
+<script src="./assets/js/script.js"></script>
+
 </body>
 </html>
