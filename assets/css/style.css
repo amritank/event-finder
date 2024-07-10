@@ -1,6 +1,131 @@
-/** CSS Reset */
+/* Reset and Variables */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --header-background-light: lightblue;
+  
+}
+
+header {
+  height: 10vh;
+  background-color: var(--header-background-light);
+  
+}
+
+
+h1 {
+
+  display: inline-flex;
+  float: left;
+  padding-left: 30px;
+  word-spacing: 10px;
+  margin-top: 20px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: blue;
+  font-weight: bolder;
+}
+
+main {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: 80vh;
+  margin-top: 10px;
+}
+
+
+
+
+#eventSearchContainer 
+#eventResultsContainer 
+{
+flex: 1;
+
+
+padding: 20px;
+box-sizing: border-box;
+max-width: calc(50% - 10px); /* Adjust to maintain space between the panels */
+
+
+}
+
+
+
+#eventSearchContainer {
+  margin-right: 10px;
+  background-color: whitesmoke;
+  width: 40%;
+  border-width: 2px;
+  border: 2px solid black;
+  
+}
+
+#eventResultsContainer {
+  
+  margin-left: 10px; /* Space between containers */
+  background-color: whitesmoke;
+  width: 60%;
+  border: 2px solid black;
+}
+
+form ul {
+  list-style-type: none;
+}
+
+form ul li {
+  margin-bottom: 10px; /* Space between input fields */
+}
+
+#form-container {
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-top: 90px;
+
+}
+
+button {
+  background-color: green;
+  color: black;
+  cursor: pointer;
+  font-size: medium;
+  letter-spacing: 0.21px;
+  line-height: 8px;
+  width: 100%; /* Full width button */
+  padding: 10px; /* Adjust padding */
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  border: solid black;
+  display: block;
+  
+}
+
+
+
+li label {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+  
+}
+
+input {
+  width: 200px;
+  padding: 6px;
+  margin-top: 10px;
+  font-size: small;
+  border: 2px solid black;
+}
+
+#button {
+
+padding-top: 10px;
+
 }

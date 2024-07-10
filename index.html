@@ -14,6 +14,51 @@
 
 <body>
 
+<header>
+<h1> EventFinder</h1>
+
+</header>
+
+<main>
+
+  <div id="eventSearchContainer">
+   <div id = "form-container"> 
+    <form id="search-form">
+     <ul>
+
+      <li>
+        <label for="event-type">EVENT TYPE</label>
+        <input id="eventType" class="form-input" type="text" placeholder="Concert">
+      </li>
+
+      <li>
+        <label for="event-city">CITY</label>
+        <input id="eventCity" class="form-input" type="text" placeholder="San Diego">
+      </li>
+
+      <li>
+        <label for="event-state">STATE</label>
+        <input id="eventState" class="form-input" type="text" placeholder="California">
+      </li>
+       
+      <li id = button>
+      <button class="btn-info">Search</button>
+      </li>
+    </form>
+    </div>
+  </div> 
+
+  <div id="eventResultsContainer" class="result-box">
+
+  </div>
+
+
+
+
+</main>
+
+
+
   <script src="./assets/js/script.js"></script>
 </body>
 </html>
