@@ -25,6 +25,86 @@ function readFromLocalStorage() {
     return JSON.parse(localStorage.getItem("events"));
 }
 
+const resultsContainerEl = document.getElementById('eventResultsContainer');
+
+function renderResults() {
+    // Get events from localStorage
+    const events = readFromLocalStorage();
+    resultsContainerEl.innerHTML = '';
+
+    // Loop through events and render a card for each event
+    for (const event of events) {
+        renderCard(event);
+    }
+}
+  
+function renderCard(eventObj) {
+    // Results card
+    const cardEl = document.createElement('div');
+    cardEl.setAttribute('class', 'p-5 mb-5');
+    cardEl.style.border = '2px solid black';
+  
+    // Main row
+    const mainRowEl = document.createElement('div');
+    mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
+  
+    // Thumbnail
+    const thumbnailEl = document.createElement('div');
+    thumbnailEl.style.backgroundImage = `url(${eventObj.thumbnail})`;
+    thumbnailEl.style.backgroundSize = 'cover';
+    thumbnailEl.style.height = '150px';
+    thumbnailEl.style.width = '150px';
+    thumbnailEl.setAttribute('class', 'mr-5');
+    mainRowEl.append(thumbnailEl);
+  
+    // Main Info container
+    const mainInfoContainerEl = document.createElement('div');
+    mainRowEl.append(mainInfoContainerEl);
+  
+    // Title
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = eventObj.title;
+    titleEl.setAttribute('class', 'mb-2');
+    titleEl.style.fontWeight = 'bold';
+    titleEl.style.fontSize = '175%';
+    mainInfoContainerEl.append(titleEl);
+  
+    // Info
+    const infoEl = document.createElement('div');
+    const dateEl = document.createElement('p');
+    dateEl.textContent = 'Date & Time: ' + (new Date (eventObj.dateTime)).toLocaleString();
+    const addressEl = document.createElement('p');
+    addressEl.textContent = 'Address: ' + eventObj.address;
+    infoEl.append(dateEl, addressEl);
+    mainInfoContainerEl.append(infoEl);
+  
+    // Bottom row
+    const bottomRow = document.createElement('div');
+    bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between is-align-items-flex-end');
+  
+    // Source
+    const sourceEl = document.createElement('img');
+    sourceEl.src = './assets/images/ticketmaster-logo.png';
+    sourceEl.style.height = '20px';
+    sourceEl.style.width = '20px';
+    bottomRow.append(sourceEl);
+  
+    // More info
+    const moreInfoEl = document.createElement('button');
+    moreInfoEl.textContent = 'More Info';
+    moreInfoEl.classList.add('button');
+    moreInfoEl.addEventListener('click', (event) => handleMoreInfoButtonClick(event, eventObj)); // Call openModal function and pass eventObj
+    bottomRow.append(moreInfoEl);
+  
+    // Append info to card and append card to results container
+    cardEl.append(mainRowEl, bottomRow);
+    resultsContainerEl.append(cardEl);
+}
+  
+function handleMoreInfoButtonClick(event, eventObj) {
+    //TODO: Implement opening modal
+}
+
 function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
     if (eventType === "") {
         eventType = "events";
@@ -86,8 +166,7 @@ function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
                 storeToLocalStorage(eventsData);
             }
 
-            //TODO: Call render method 
-            //todoRenderMethod(eventsData);
+            renderResults();
         });
 
 }
