@@ -83,8 +83,6 @@ form ul li {
   padding-top: 10px;
 
 }
-
-
 #search-form{
 width: 450px;
 }
@@ -126,7 +124,6 @@ padding-top: 10px;
 
 }
 
-
 #errorMsg {
   display: none;
   color: hsl(348, 100%, 61%);
@@ -137,7 +134,6 @@ padding-top: 10px;
 position: relative;
 
 }
-
 .more-info-link {
 
   position: absolute;
