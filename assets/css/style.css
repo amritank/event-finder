@@ -83,8 +83,6 @@ form ul li {
   padding-top: 10px;
 
 }
-
-
 #search-form{
 width: 450px;
 }
@@ -126,11 +124,23 @@ padding-top: 10px;
 
 }
 
-
 #errorMsg {
   display: none;
   color: hsl(348, 100%, 61%);
   margin-top: 10px;
 }
 
+.card {
+position: relative;
 
+}
+.more-info-link {
+
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color:blue;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
