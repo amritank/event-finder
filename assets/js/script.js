@@ -1,4 +1,5 @@
 const searchBtnEl = document.getElementById("searchBtn");
+const searchForm = document.getElementById("search-form");
 const eventCityEl = document.getElementById("eventCity");
 const eventStateEl = document.getElementById("eventState");
 const eventTypeEl = document.getElementById("eventType");
@@ -15,6 +16,8 @@ const ticketMasterApiKey = "NKLwGZ8Q2Ia64tUfDRcaU1AUZ0ChUWGW"
 
 // <----- Helper Methods ----->
 function storeToLocalStorage(eventsArr) {
+    console.log("Storing the below info to localstorage");
+    console.log(eventsArr);
     localStorage.setItem("events", JSON.stringify(eventsArr));
 }
 
@@ -40,19 +43,44 @@ function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
             console.log(data);
             const eventsData = [];
             if ('_embedded' in data) {
-                //TODO: Group dates for similar events.
                 const eventsResponse = data._embedded.events;
+                console.log("Response from ticketmaster api call");
                 console.log(eventsResponse);
                 for (d of eventsResponse) {
+                    //TODO: Query info instead of description
                     const eventInfo = {
                         title: d.name,
                         dateTime: d.dates.start.dateTime,
-                        description: "",
+                        info: "",
+                        pricerange: "Free",
                         thumbnail: d.images[0].url,
                         source: "ticketmaster",
-                        link: d._embedded.venues[0].url,
-                        address: d._embedded.venues[0].address.line1 + `, ${eventCity}, ${eventState}`
+                        link: "",
+                        address: ""
                     }
+                    if ("_embedded" in d && "venues" in d._embedded) {
+                        eventInfo.link = d._embedded.venues[0].url;
+                        eventInfo.address = d._embedded.venues[0].address.line1 + `, ${eventCity}, ${eventState}`;
+                    }
+
+                    if ("info" in d) {
+                        eventInfo.info = d.info;
+                    }
+
+                    if ("priceRanges" in d) {
+                        const priceData = d.priceRanges[0];
+                        let pInfoStr = ""
+                        if (("min" in priceData) && ("max" in priceData)) {
+                            pInfoStr = priceData.min + " - " + priceData.max + " USD";
+                        } else if ("min" in priceData) {
+                            pInfoStr = priceData.min + "USD";
+                        } else if ("max" in priceData) {
+                            pInfoStr = priceData.max + "USD";
+                        }
+                        eventInfo.pricerange = pInfoStr;
+                    }
+
+
                     eventsData.push(eventInfo);
                 }
                 storeToLocalStorage(eventsData);
@@ -70,10 +98,12 @@ function validateFieldsAreNotEmpty() {
         pErrorMsgEl.textContent = "Event city is a required field!"
         pErrorMsgEl.style.display = "block";
         pErrorMsgEl.style.color = "red";
+        return false;
     }
+    return true;
 }
 
-//TODO: Bulma styling
+//TODO: Bulma styling ?
 function populateUsStates() {
     const eventStateEl = document.getElementById("eventState");
     for (s of usStates) {
@@ -86,26 +116,27 @@ function populateUsStates() {
 
 // <----- Event Call backs ---->
 // Call back function for the search button
-function searchEvents(event) {
-    validateFieldsAreNotEmpty();
-    queryEventsFromTicketMaster(eventTypeEl.value, eventStateEl.value, eventCityEl.value);
+function handleSearchFormSubmit(event) {
+    event.preventDefault();
+    if (validateFieldsAreNotEmpty()) {
+        queryEventsFromTicketMaster(eventTypeEl.value, eventStateEl.value, eventCityEl.value);
+    }
+
 }
 
-// Call back function for 
-function clearErrorMsg() {
+// Call back function to clear the error msg when user click on any of the input boxes
+function handleFormFieldsClick() {
     pErrorMsgEl.textContent = ""
     pErrorMsgEl.style.display = "none";
 }
 
 
 // <----- Event Listeners ----->
-searchBtnEl.addEventListener("click", searchEvents);
+searchForm.addEventListener('submit', handleSearchFormSubmit);
+
 document.querySelectorAll('.eventData').forEach(el => {
-    el.addEventListener("click", clearErrorMsg);
+    el.addEventListener("click", handleFormFieldsClick);
 });
 
-window.onload = populateUsStates;
-
-
-
->>>>>>> b91f716 (Adding logic for search events button)
+console.log("hello");
+// window.onload = populateUsStates;
