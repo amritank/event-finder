@@ -10,7 +10,7 @@ const usStates = ["AK", "AL", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC",
     "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI",
     "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY",
     "AE", "AA", "AP"];
-const serpApiKey = "af555a8a7c8af6987d6427b41ff356f39d314c26a3634c1f5563a0fa171288fd"
+const gApiKey = "AIzaSyAjEdX6S_xFQigVRScAJn6tIFbdu_18lzA"
 const ticketMasterApiKey = "NKLwGZ8Q2Ia64tUfDRcaU1AUZ0ChUWGW"
 
 
@@ -21,10 +21,12 @@ function storeToLocalStorage(eventsArr) {
     localStorage.setItem("events", JSON.stringify(eventsArr));
 }
 
+// Helper method to read from local storage.
 function readFromLocalStorage() {
     return JSON.parse(localStorage.getItem("events"));
 }
 
+// Helper method to render results.
 const resultsContainerEl = document.getElementById('eventResultsContainer');
 
 function renderResults() {
@@ -33,11 +35,14 @@ function renderResults() {
     resultsContainerEl.innerHTML = '';
 
     // Loop through events and render a card for each event
-    for (const event of events) {
-        renderCard(event);
+    if (events) {
+        for (const event of events) {
+            renderCard(event);
+        }
     }
 }
 
+// Helper method to create results card
 function renderCard(eventObj) {
     // Results card
     const cardEl = document.createElement('div');
@@ -175,8 +180,8 @@ function handleMoreInfoButtonClick(event, eventObj) {
 
 }
 
-// Helper function to query events from ticketmaster given eventtype/state and city.
-function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
+// Helper method to query events from ticket master and render it.
+function queryAndRenderEventsFromTicketMaster(eventType, eventCity, eventState) {
     if (eventType === "") {
         eventType = "events";
     }
@@ -198,7 +203,6 @@ function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
                 console.log("Response from ticketmaster api call");
                 console.log(eventsResponse);
                 for (d of eventsResponse) {
-                    //TODO: Query info instead of description
                     const eventInfo = {
                         title: d.name,
                         dateTime: d.dates.start.dateTime,
@@ -238,9 +242,10 @@ function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
 
             renderResults();
             // clear input fields
-            eventCityEl.value = "";
-            eventTypeEl.value = "";
-            eventStateEl.value = "";
+            // Commenting this as it deletes the entries on page load.
+            // eventCityEl.value = "";
+            // eventTypeEl.value = "";
+            // eventStateEl.value = "";
         });
 
 }
@@ -272,7 +277,7 @@ function populateUsStates() {
 function handleSearchFormSubmit(event) {
     event.preventDefault();
     if (validateFieldsAreNotEmpty()) {
-        queryEventsFromTicketMaster(eventTypeEl.value, eventStateEl.value, eventCityEl.value);
+        queryAndRenderEventsFromTicketMaster(eventTypeEl.value, eventCityEl.value, eventStateEl.value);
     }
 
 }
@@ -283,6 +288,42 @@ function handleFormFieldsClick() {
     pErrorMsgEl.style.display = "none";
 }
 
+function initWindowFunction() {
+    // empty localstorage
+    storeToLocalStorage([]);
+    // populate the drop down button with the US states
+    populateUsStates();
+
+    // Get current location - lat/lng
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            console.log(`Current location points to: lat:${lat} and lng: ${lng}`);
+            const gReverseGeoCodingApi = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=locality&sensor=true&key=${gApiKey}`;
+            console.log(`Invoking reverse geocoding api: ${gReverseGeoCodingApi} to fetch the city and state from the co-ordinates`);
+            fetch(gReverseGeoCodingApi)
+                .then(function (response) {
+                    console.log("response");
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    const address = data.results[0].formatted_address;
+                    const addressFields = address.split(",");
+                    const curCity = addressFields[0].trim();
+                    const curState = addressFields[1].trim().split(" ")[0];
+                    console.log(`Got back current city as: ${curCity} and state as: ${curState}. Rendering events .. `);
+                    eventCityEl.value = curCity;
+                    eventStateEl.value = curState;
+                    queryAndRenderEventsFromTicketMaster("events", curCity, curState);
+                });
+
+        });
+    }
+    // TODO: What msg to print if user does not enable  gelocatuon
+}
+
 
 // <----- Event Listeners ----->
 searchForm.addEventListener('submit', handleSearchFormSubmit);
@@ -291,4 +332,4 @@ document.querySelectorAll('.formControls').forEach(el => {
     el.addEventListener("click", handleFormFieldsClick);
 });
 
-window.onload = populateUsStates;
+window.onload = initWindowFunction;
