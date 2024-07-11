@@ -37,7 +37,7 @@ function renderResults() {
         renderCard(event);
     }
 }
-  
+
 function renderCard(eventObj) {
     // Results card
     const cardEl = document.createElement('div');
@@ -47,7 +47,7 @@ function renderCard(eventObj) {
     // Main row
     const mainRowEl = document.createElement('div');
     mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
-  
+
     // Thumbnail
     const thumbnailEl = document.createElement('div');
     thumbnailEl.style.backgroundImage = `url(${eventObj.thumbnail})`;
@@ -56,11 +56,11 @@ function renderCard(eventObj) {
     thumbnailEl.style.width = '150px';
     thumbnailEl.setAttribute('class', 'mr-5');
     mainRowEl.append(thumbnailEl);
-  
+
     // Main Info container
     const mainInfoContainerEl = document.createElement('div');
     mainRowEl.append(mainInfoContainerEl);
-  
+
     // Title
     const titleEl = document.createElement('h3');
     titleEl.textContent = eventObj.title;
@@ -68,44 +68,44 @@ function renderCard(eventObj) {
     titleEl.style.fontWeight = 'bold';
     titleEl.style.fontSize = '175%';
     mainInfoContainerEl.append(titleEl);
-  
+
     // Info
     const infoEl = document.createElement('div');
     const dateEl = document.createElement('p');
-    dateEl.textContent = 'Date & Time: ' + (new Date (eventObj.dateTime)).toLocaleString();
+    dateEl.textContent = 'Date & Time: ' + (new Date(eventObj.dateTime)).toLocaleString();
     const addressEl = document.createElement('p');
     addressEl.textContent = 'Address: ' + eventObj.address;
     infoEl.append(dateEl, addressEl);
     mainInfoContainerEl.append(infoEl);
-  
+
     // Bottom row
     const bottomRow = document.createElement('div');
     bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between is-align-items-flex-end');
-  
+
     // Source
     const sourceEl = document.createElement('img');
     sourceEl.src = './assets/images/ticketmaster-logo.png';
     sourceEl.style.height = '20px';
     sourceEl.style.width = '20px';
     bottomRow.append(sourceEl);
-  
+
     // More info
     const moreInfoEl = document.createElement('span');
     moreInfoEl.textContent = 'More Info';
     moreInfoEl.classList.add('more-info-link');
     moreInfoEl.addEventListener('click', (event) => handleMoreInfoButtonClick(event, eventObj)); // Call openModal function and pass eventObj
     bottomRow.append(moreInfoEl);
-  
+
     // Append info to card and append card to results container
     cardEl.append(mainRowEl, bottomRow);
     resultsContainerEl.append(cardEl);
 }
-  
+
 function handleMoreInfoButtonClick(event, eventObj) {
-    //TODO: Implement opening modal
+    //Implement opening modal
     const modal = document.getElementById('eventModal');
     const modalContentEl = modal.querySelector('.box');
-    
+
     // Clear previous content
     modalContentEl.innerHTML = '';
 
@@ -168,15 +168,14 @@ function handleMoreInfoButtonClick(event, eventObj) {
 
     // Show the modal
     modal.classList.add('is-active');
-    
+
     // Close the modal when the background or close button is clicked
     modal.querySelector('.modal-background').addEventListener('click', () => modal.classList.remove('is-active'));
     modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('is-active'));
-    
+
 }
 
-
-
+// Helper function to query events from ticketmaster given eventtype/state and city.
 function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
     if (eventType === "") {
         eventType = "events";
@@ -232,13 +231,16 @@ function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
                         eventInfo.pricerange = pInfoStr;
                     }
 
-
                     eventsData.push(eventInfo);
                 }
                 storeToLocalStorage(eventsData);
             }
 
             renderResults();
+            // clear input fields
+            eventCityEl.value = "";
+            eventTypeEl.value = "";
+            eventStateEl.value = "";
         });
 
 }
@@ -285,9 +287,8 @@ function handleFormFieldsClick() {
 // <----- Event Listeners ----->
 searchForm.addEventListener('submit', handleSearchFormSubmit);
 
-document.querySelectorAll('.eventData').forEach(el => {
+document.querySelectorAll('.formControls').forEach(el => {
     el.addEventListener("click", handleFormFieldsClick);
 });
 
-console.log("hello");
-// window.onload = populateUsStates;
+window.onload = populateUsStates;
