@@ -133,4 +133,18 @@ padding-top: 10px;
   margin-top: 10px;
 }
 
+.card {
+position: relative;
 
+}
+
+.more-info-link {
+
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color:blue;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}

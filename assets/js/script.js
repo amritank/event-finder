@@ -43,7 +43,7 @@ function renderCard(eventObj) {
     const cardEl = document.createElement('div');
     cardEl.setAttribute('class', 'p-5 mb-5');
     cardEl.style.border = '2px solid black';
-  
+    cardEl.style.position = 'relative';
     // Main row
     const mainRowEl = document.createElement('div');
     mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
@@ -90,9 +90,9 @@ function renderCard(eventObj) {
     bottomRow.append(sourceEl);
   
     // More info
-    const moreInfoEl = document.createElement('button');
+    const moreInfoEl = document.createElement('span');
     moreInfoEl.textContent = 'More Info';
-    moreInfoEl.classList.add('button');
+    moreInfoEl.classList.add('more-info-link');
     moreInfoEl.addEventListener('click', (event) => handleMoreInfoButtonClick(event, eventObj)); // Call openModal function and pass eventObj
     bottomRow.append(moreInfoEl);
   
@@ -103,7 +103,67 @@ function renderCard(eventObj) {
   
 function handleMoreInfoButtonClick(event, eventObj) {
     //TODO: Implement opening modal
+    const modal = document.getElementById('eventModal');
+    const modalContentEl = modal.querySelector('.box');
+    
+    // Clear previous content
+    modalContentEl.innerHTML = '';
+
+    // Title
+    const titleEl = document.createElement('h3');
+    titleEl.classList.add('title');
+    titleEl.id = 'modalTitle';
+    titleEl.textContent = eventObj.title;
+    modalContentEl.appendChild(titleEl);
+
+    // Added horizontal line after title
+    const hrEl = document.createElement('hr');
+    modalContentEl.appendChild(hrEl);
+
+    // Date and Time
+    const dateEl = document.createElement('p');
+    dateEl.id = 'modalDate';
+    dateEl.textContent = `Date & Time: ${new Date(eventObj.dateTime).toLocaleString()}`;
+    modalContentEl.appendChild(dateEl);
+
+    // Venue
+    const venueEl = document.createElement('p');
+    venueEl.id = 'modalVenue';
+    venueEl.textContent = `Venue: ${eventObj.address}`;
+    modalContentEl.appendChild(venueEl);
+
+    // Price Range
+    const priceRangeEl = document.createElement('p');
+    priceRangeEl.id = 'modalPriceRange';
+    priceRangeEl.textContent = `Price Range: ${eventObj.pricerange}`;
+    modalContentEl.appendChild(priceRangeEl);
+
+    // Event Link
+    const linkEl = document.createElement('p');
+    linkEl.id = 'modalLink';
+    linkEl.innerHTML = `Event Link: <a href="${eventObj.link}" target="_blank">Link</a>`;
+    modalContentEl.appendChild(linkEl);
+
+    // Added horizontal line after Event Link
+    const hrEl2 = document.createElement('hr');
+    modalContentEl.appendChild(hrEl2);
+
+    // Description
+    const descriptionEl = document.createElement('p');
+    descriptionEl.id = 'modalDescription';
+    descriptionEl.textContent = `Description: ${eventObj.info}`;
+    modalContentEl.appendChild(descriptionEl);
+
+    // Show the modal
+    modal.classList.add('is-active');
+    
+    // Close the modal when the background or close button is clicked
+    modal.querySelector('.modal-background').addEventListener('click', () => modal.classList.remove('is-active'));
+    modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('is-active'));
+    
 }
+
+
 
 function queryEventsFromTicketMaster(eventType, eventState, eventCity) {
     if (eventType === "") {
