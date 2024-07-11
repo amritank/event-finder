@@ -123,25 +123,37 @@ function handleMoreInfoButtonClick(event, eventObj) {
     // Date and Time
     const dateEl = document.createElement('p');
     dateEl.id = 'modalDate';
-    dateEl.textContent = `Date & Time: ${new Date(eventObj.dateTime).toLocaleString()}`;
+    const dateLabel = document.createElement('span');
+    dateLabel.style.fontWeight = 'bold';
+    dateLabel.textContent = 'Date & Time: ';
+    dateEl.appendChild(dateLabel);
+    dateEl.append(new Date(eventObj.dateTime).toLocaleString());
     modalContentEl.appendChild(dateEl);
 
     // Venue
     const venueEl = document.createElement('p');
     venueEl.id = 'modalVenue';
-    venueEl.textContent = `Venue: ${eventObj.address}`;
+    const venueLabel = document.createElement('span');
+    venueLabel.style.fontWeight = 'bold';
+    venueLabel.textContent = 'Venue: ';
+    venueEl.appendChild(venueLabel);
+    venueEl.append(eventObj.address);
     modalContentEl.appendChild(venueEl);
 
     // Price Range
     const priceRangeEl = document.createElement('p');
     priceRangeEl.id = 'modalPriceRange';
-    priceRangeEl.textContent = `Price Range: ${eventObj.pricerange}`;
+    const priceRangeLabel = document.createElement('span');
+    priceRangeLabel.style.fontWeight = 'bold';
+    priceRangeLabel.textContent = 'Price Range: ';
+    priceRangeEl.appendChild(priceRangeLabel);
+    priceRangeEl.append(eventObj.pricerange);
     modalContentEl.appendChild(priceRangeEl);
 
     // Event Link
     const linkEl = document.createElement('p');
     linkEl.id = 'modalLink';
-    linkEl.innerHTML = `Event Link: <a href="${eventObj.link}" target="_blank">Link</a>`;
+    linkEl.innerHTML = `<a href="${eventObj.link}" target="_blank">Event Link</a>`;
     modalContentEl.appendChild(linkEl);
 
     // Added horizontal line after Event Link
@@ -151,7 +163,7 @@ function handleMoreInfoButtonClick(event, eventObj) {
     // Description
     const descriptionEl = document.createElement('p');
     descriptionEl.id = 'modalDescription';
-    descriptionEl.textContent = `Description: ${eventObj.info}`;
+    descriptionEl.textContent = ` ${eventObj.info}`;
     modalContentEl.appendChild(descriptionEl);
 
     // Show the modal
