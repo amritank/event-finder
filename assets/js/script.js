@@ -68,7 +68,7 @@ function renderCard(eventObj) {
   const moreInfoEl = document.createElement('button');
   moreInfoEl.textContent = 'More Info';
   moreInfoEl.classList.add('button');
-  moreInfoEl.addEventListener('click', (event) => openModal(event, eventObj)); // Call openModal function and pass eventObj
+  moreInfoEl.addEventListener('click', (event) => handleMoreInfoButtonClick(event, eventObj)); // Call openModal function and pass eventObj
   bottomRow.append(moreInfoEl);
 
   // Append info to card and append card to results container
@@ -76,7 +76,7 @@ function renderCard(eventObj) {
   resultsContainerEl.append(cardEl);
 }
 
-function openModal(event, eventObj) {
+function handleMoreInfoButtonClick(event, eventObj) {
   console.log(eventObj);
 }
 
