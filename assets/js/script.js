@@ -42,13 +42,99 @@ function renderResults() {
     }
 }
 
-// Helper method to create results card
+
+// Helper method to create results with styling card
 function renderCard(eventObj) {
+
+    const cardBoxEl = document.createElement("div");
+    cardBoxEl.setAttribute("class", "box");
+    const articleEl = document.createElement("article");
+    articleEl.setAttribute("class", "media");
+
+    // Thumbnail
+    const mediaImgEl = document.createElement('div');
+    mediaImgEl.setAttribute('class', 'media-left'); //mr-5 
+    mediaImgEl.style.backgroundImage = `url(${eventObj.thumbnail})`;
+    mediaImgEl.style.backgroundSize = 'cover';
+    mediaImgEl.style.backgroundPosition = 'center';
+    mediaImgEl.style.height = '150px';
+    mediaImgEl.style.width = '150px';
+    // append thumbnail to article
+    articleEl.appendChild(mediaImgEl);
+
+    // Results card
+    const mediaContentEl = document.createElement('div');
+    mediaContentEl.setAttribute("class", "media-content");
+    const contentCardEL = document.createElement('div');
+    contentCardEL.setAttribute("class", "content")
+
+    // Title
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = eventObj.title;
+
+    // Info
+    const infoEl = document.createElement('div');
+    const dateEl = document.createElement('p');
+    dateEl.innerHTML = `<b>Date & Time:</b> ${(new Date(eventObj.dateTime))
+        .toLocaleString([], {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        })}`;
+    const addressEl = document.createElement('p');
+    addressEl.innerHTML = `<b>Address:</b> ${eventObj.address}`;
+    infoEl.append(dateEl, addressEl);
+    contentCardEL.append(titleEl, infoEl);
+
+    //Nav bar
+    const navEl = document.createElement('nav');
+    navEl.setAttribute("class", "level is-mobile");
+    const miscDivEl = document.createElement('div');
+    miscDivEl.setAttribute("class", "level-left");
+
+    // ticketmaster icon
+    const aSrcEl = document.createElement("a");
+    aSrcEl.setAttribute('class', "level-item");
+    const spanSrcEl = document.createElement("span");
+    spanSrcEl.setAttribute("class", "icon is-small");
+    const sourceEl = document.createElement('img');
+    sourceEl.src = './assets/images/ticketmaster-logo.png';
+    sourceEl.style.height = '20px';
+    sourceEl.style.width = '25px';
+    spanSrcEl.appendChild(sourceEl);
+    aSrcEl.append(spanSrcEl);
+
+    // More info
+    const aMoreInfoEl = document.createElement("a");
+    aMoreInfoEl.setAttribute('class', "level-item");
+    const spanMoreInfoEl = document.createElement("span");
+    spanMoreInfoEl.textContent = 'More Info';
+    spanMoreInfoEl.addEventListener('click', (event) => handleMoreInfoButtonClick(event, eventObj));
+    aMoreInfoEl.append(spanMoreInfoEl);
+    miscDivEl.append(aSrcEl);
+    miscDivEl.append(aMoreInfoEl);
+    navEl.append(miscDivEl);
+
+    mediaContentEl.append(contentCardEL)
+    mediaContentEl.append(navEl);
+    articleEl.append(mediaContentEl);
+    cardBoxEl.appendChild(articleEl);
+    resultsContainerEl.append(cardBoxEl);
+}
+
+// Helper method to create results card
+function _renderCard(eventObj) {
     // Results card
     const cardEl = document.createElement('div');
-    cardEl.setAttribute('class', 'p-5 mb-5');
-    cardEl.style.border = '2px solid black';
+    // cardEl.setAttribute('class', 'p-5 mb-5 ');
+    cardEl.style.borderRadius = '10px';
+    // cardEl.style.border = '2px solid black';
     cardEl.style.position = 'relative';
+    cardEl.style.width = "60%";
+
     // Main row
     const mainRowEl = document.createElement('div');
     mainRowEl.setAttribute('class', 'is-flex is-flex-direction-row mb-4');
@@ -57,6 +143,7 @@ function renderCard(eventObj) {
     const thumbnailEl = document.createElement('div');
     thumbnailEl.style.backgroundImage = `url(${eventObj.thumbnail})`;
     thumbnailEl.style.backgroundSize = 'cover';
+    thumbnailEl.style.backgroundPosition = 'center';
     thumbnailEl.style.height = '150px';
     thumbnailEl.style.width = '150px';
     thumbnailEl.setAttribute('class', 'mr-5');
@@ -77,9 +164,18 @@ function renderCard(eventObj) {
     // Info
     const infoEl = document.createElement('div');
     const dateEl = document.createElement('p');
-    dateEl.textContent = 'Date & Time: ' + (new Date(eventObj.dateTime)).toLocaleString();
+    dateEl.innerHTML = `<b>Date & Time:</b> ${(new Date(eventObj.dateTime))
+        .toLocaleString([], {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        })}`;
     const addressEl = document.createElement('p');
-    addressEl.textContent = 'Address: ' + eventObj.address;
+    // addressEl.textContent = 'Address: ' + eventObj.address;
+    addressEl.innerHTML = `<b>Address:</b> ${eventObj.address}`;
     infoEl.append(dateEl, addressEl);
     mainInfoContainerEl.append(infoEl);
 
@@ -88,6 +184,8 @@ function renderCard(eventObj) {
     bottomRow.setAttribute('class', 'is-flex is-flex-direction-row is-justify-content-space-between is-align-items-flex-end');
 
     // Source
+    const sourceLinkEl = document.createElement('a');
+    sourceLinkEl.href = eventObj.link ? eventObj.link : 'https://www.ticketmaster.com';
     const sourceEl = document.createElement('img');
     sourceEl.src = './assets/images/ticketmaster-logo.png';
     sourceEl.style.height = '20px';
