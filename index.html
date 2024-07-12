@@ -22,41 +22,43 @@
 
   <!-- Main -->
   <section class="section">
-    <div class="container">
-      <div class="columns is-multiline">
-        <div class="column is-6-tablet is-5-desktop">
-          <div class="notification is-info is-light">
-            <h2 class="has-text-weight-bold is-size-3-mobile is-size-3-tablet is-size-2-desktop tite has-text-centered">
-              Find an Event
-            </h2>
-          </div>
-          <form id="search-form">
-            <div class="formControlContainer">
-              <label for="eventType" class="label formLabels">Event Type</label>
-              <input id="eventType" type="text" class="input is-info formControls" placeholder="enter event type">
-            </div>
-            <div class="formControlContainer mt-3">
-              <label for="eventCity" class="label formLabels">City</label>
-              <input id="eventCity" type="text" class="input is-info formControls" placeholder="enter event city">
-            </div>
-            <div class="formControlContainer mt-3">
-              <label for="eventState" class="label formLabels">State</label>
-              <div class="select is-info formControls">
-                <select id="eventState" class="formControls" style="color:black">
-                </select>
-              </div>
-            </div>
-            <div>
-              <p id="errorMsg" class="is-size-7"></p>
-            </div>
-            <div class="formControlContainer  mt-3">
-              <button id="searchBtn" type="submit"
-                class="has-text-weight-medium is-size-5-mobile is-size-5-tablet is-size-4-desktop button is-info is-light is-responsive formControls">Search</button>
-            </div>
-          </form>
+    <!-- <div class="container"> -->
+    <div class="columns is-multiline">
+      <div class="column is-6-tablet is-5-desktop">
+        <div class="notification is-info is-light">
+          <h2 class="has-text-weight-bold is-size-3-mobile is-size-3-tablet is-size-2-desktop tite has-text-centered">
+            Find an Event
+          </h2>
         </div>
-        <div class="column is-6-tablet is-7-desktop" id="eventResultsContainer"></div>
-        <!-- <div class="column is-12-tablet is-3-desktop" id="eventMapContainer">Lorem, ipsum dolor sit amet
+        <form id="search-form">
+          <div class="formControlContainer">
+            <label for="eventType" class="label formLabels">Event Type</label>
+            <input id="eventType" type="text" class="input is-info formControls" placeholder="enter event type">
+          </div>
+          <div class="formControlContainer mt-3">
+            <label for="eventCity" class="label formLabels">City</label>
+            <input id="eventCity" type="text" class="input is-info formControls" placeholder="enter event city">
+          </div>
+          <div class="formControlContainer mt-3">
+            <label for="eventState" class="label formLabels">State</label>
+            <div class="select is-info formControls">
+              <select id="eventState" class="formControls" style="color:black">
+              </select>
+            </div>
+          </div>
+          <div>
+            <p id="errorMsg" class="is-size-7"></p>
+          </div>
+          <div class="formControlContainer  mt-3">
+            <button id="searchBtn" type="submit"
+              class="has-text-weight-medium is-size-5-mobile is-size-5-tablet is-size-4-desktop button is-info is-light is-responsive formControls">Search</button>
+          </div>
+        </form>
+      </div>
+      <div class="column is-6-tablet is-7-desktop" id="eventResultsContainer">
+        <div class="loader"></div>
+      </div>
+      <!-- <div class="column is-12-tablet is-3-desktop" id="eventMapContainer">Lorem, ipsum dolor sit amet
                     consectetur
                     adipisicing elit.
                     Nostrum nisi nam
@@ -65,8 +67,8 @@
                     magnam
                     provident, voluptatibus id corporis molestiae mollitia.
                 </div> -->
-      </div>
     </div>
+    <!-- </div> -->
   </section>
 
   <!-- Bulma Modal for more info -->
