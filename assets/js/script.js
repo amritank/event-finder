@@ -488,10 +488,12 @@ function handleMoreInfoButtonClick(event, eventObj) {
     modalContentEl.appendChild(priceRangeEl);
 
     // Event Link
-    const linkEl = document.createElement('p');
-    linkEl.id = 'modalLink';
-    linkEl.innerHTML = `<a href="${eventObj.link}" target="_blank">Event Link</a>`;
-    modalContentEl.appendChild(linkEl);
+    if (eventObj.link) {
+        const linkEl = document.createElement('p');
+        linkEl.id = 'modalLink';
+        linkEl.innerHTML = `<a href="${eventObj.link}" target="_blank">Event Link</a>`;
+        modalContentEl.appendChild(linkEl);
+    }
 
     // Added horizontal line after Event Link
     const hrEl2 = document.createElement('hr');
