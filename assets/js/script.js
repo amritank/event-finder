@@ -10,7 +10,8 @@ const usStates = ["AK", "AL", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC",
     "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI",
     "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY",
     "AE", "AA", "AP"];
-const gApiKey = "AIzaSyAjEdX6S_xFQigVRScAJn6tIFbdu_18lzA"
+// const gApiKey = "AIzaSyAjEdX6S_xFQigVRScAJn6tIFbdu_18lzA"
+const gApiKey = "AIzaSyBDQBqqVosxKqFZGE2XKhBEoZUIiWJ-OUE";
 const ticketMasterApiKey = "NKLwGZ8Q2Ia64tUfDRcaU1AUZ0ChUWGW"
 const gMapsBaseUrl = "https://maps.googleapis.com/maps/api/geocode/json?";
 let map;
@@ -172,7 +173,7 @@ function renderResults() {
 function renderCard(eventObj) {
 
     const cardBoxEl = document.createElement("div");
-    cardBoxEl.setAttribute("class", "box");
+    cardBoxEl.setAttribute("class", "box eventResultCard");
     const articleEl = document.createElement("article");
     articleEl.setAttribute("class", "media");
 
@@ -575,6 +576,8 @@ function initWindowFunction() {
                 });
 
         });
+    } else {
+        console.log("not enabled");
     }
     // TODO: What msg to print if user does not enable  gelocatuon
 }
