@@ -10,7 +10,7 @@ const usStates = ["AK", "AL", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC",
     "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI",
     "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY",
     "AE", "AA", "AP"];
-// const gApiKey = "AIzaSyAjEdX6S_xFQigVRScAJn6tIFbdu_18lzA"
+// const dayjs = require('dayjs');
 const gApiKey = "AIzaSyBDQBqqVosxKqFZGE2XKhBEoZUIiWJ-OUE";
 const ticketMasterApiKey = "NKLwGZ8Q2Ia64tUfDRcaU1AUZ0ChUWGW"
 const gMapsBaseUrl = "https://maps.googleapis.com/maps/api/geocode/json?";
@@ -137,16 +137,29 @@ function initMap() {
 // <----- HELPER METHOD FOR RENDERING RESULTS---->
 const resultsContainerEl = document.getElementById('eventResultsContainer');
 
+function compareEventDates(obj1, obj2) {
+    // fetch dates from the object
+    console.log("inside compare func");
+    console.log(obj1.dateTime);
+    console.log(obj2.dateTime);
+    const d1 = obj1.dateTime.split("T")[0];
+    const d2 = obj2.dateTime.split("T")[0];
+
+    return dayjs(d1).diff(dayjs(d2));
+
+}
+
 // Read from local storage, loop through the events and render the events card.
 function renderResults() {
     // Get events from localStorage
-    const events = readFromLocalStorage("events");
+    let events = readFromLocalStorage("events");
+    events.sort(compareEventDates);
+    console.log("post sort");
+    console.log(events);
     resultsContainerEl.innerHTML = '';
+
     const addresses = []
 
-    // Loop through events and render a card for each event
-    console.log("events");
-    console.log(events);
     if (events.length !== 0) {
         let idx = 0;
         for (const event of events) {
